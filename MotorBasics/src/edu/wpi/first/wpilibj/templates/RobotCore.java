@@ -35,7 +35,7 @@ public class RobotCore extends IterativeRobot {
 
         // instantiate the command used for the autonomous period
         //autonomousCommand = new DemoTalonCalibration();
-        autonomousCommand = new CmdDriveSpeedPID(3);
+        autonomousCommand = new DemoTalonCalibration();
         teleopCommand = new CmdDriveJoystick(0.2, 0.0);
     }
 
