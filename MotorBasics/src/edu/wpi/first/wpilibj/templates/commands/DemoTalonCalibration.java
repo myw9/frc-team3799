@@ -6,7 +6,7 @@
 package edu.wpi.first.wpilibj.templates.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.templates.subsystems.SubsystemMotor;
+import edu.wpi.first.wpilibj.templates.subsystems.SubsysDriveTrain;
 
 /**
  * Sets up an environment to manually adjust Talon PWM values from the debugger
@@ -26,7 +26,7 @@ public class DemoTalonCalibration extends CommandBase {
     
     public DemoTalonCalibration() {
         // Declare subsystem dependencies
-        requires(motorSubsystem);
+        requires(subsysDriveTrain);
     }
 
     /***************************************
@@ -40,11 +40,11 @@ public class DemoTalonCalibration extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        motorSubsystem.setSpeedAll(motorSubsystem.getSpeedControllers(), pwmValue);
+        subsysDriveTrain.setSpeedAll(subsysDriveTrain.getSpeedControllers(), pwmValue);
         
         // Update encoder information in dashboard
-        double currentPositionLeft = motorSubsystem.getPosition(motorSubsystem.getEncoders()[SubsystemMotor.LEFT_ENCODER_INDEX]);
-        double currentPositionRight = motorSubsystem.getPosition(motorSubsystem.getEncoders()[SubsystemMotor.RIGHT_ENCODER_INDEX]);
+        double currentPositionLeft = subsysDriveTrain.getPosition(subsysDriveTrain.getEncoders()[subsysDriveTrain.LEFT_ENCODER_INDEX]);
+        double currentPositionRight = subsysDriveTrain.getPosition(subsysDriveTrain.getEncoders()[subsysDriveTrain.RIGHT_ENCODER_INDEX]);
         SmartDashboard.putNumber("Left Encoder Value (Revolutions)", currentPositionLeft);
         SmartDashboard.putNumber("Right Encoder Value (Revolutions)", currentPositionRight);
     }

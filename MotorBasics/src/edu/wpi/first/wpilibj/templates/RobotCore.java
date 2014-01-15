@@ -7,7 +7,6 @@
 
 package edu.wpi.first.wpilibj.templates;
 
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -22,9 +21,9 @@ import edu.wpi.first.wpilibj.templates.commands.*;
  * directory.
  */
 public class RobotCore extends IterativeRobot {
-
+    // Commands to execute when entering "autonomous" and "teleop" modes
     Command autonomousCommand, teleopCommand;
-
+        
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -35,8 +34,10 @@ public class RobotCore extends IterativeRobot {
 
         // instantiate the command used for the autonomous period
         //autonomousCommand = new DemoTalonCalibration();
-        autonomousCommand = new DemoTalonCalibration();
-        teleopCommand = new CmdDriveJoystick(0.2, 0.0);
+        //autonomousCommand = new DemoTalonCalibration();
+        //autonomousCommand = new CmdArcadeDrive();
+        //teleopCommand = new CmdDriveJoystick(0.2, 0.0);
+        teleopCommand = new CmdArcadeDrive();
     }
 
     public void autonomousInit() {
@@ -50,8 +51,7 @@ public class RobotCore extends IterativeRobot {
     public void autonomousPeriodic() {
         if (!autonomousCommand.isRunning())
         {
-            //autonomousCommand = new DemoTalonCalibration();
-            //autonomousCommand.start();
+            // Do nothing
         }
         Scheduler.getInstance().run();
     }
@@ -61,7 +61,9 @@ public class RobotCore extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        autonomousCommand.cancel();        
+        if (autonomousCommand != null && autonomousCommand.isRunning()) {
+            autonomousCommand.cancel();        
+        }
         teleopCommand.start();
     }
 
@@ -71,8 +73,7 @@ public class RobotCore extends IterativeRobot {
     public void teleopPeriodic() {
         if (!teleopCommand.isRunning())
         {
-            //teleopCommand = new CmdDriveJoystick(0.2,0.0);
-            //teleopCommand.start();
+            // Do nothing
         }
         Scheduler.getInstance().run();
     }

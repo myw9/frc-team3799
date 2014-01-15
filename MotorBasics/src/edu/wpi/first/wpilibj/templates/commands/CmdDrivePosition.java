@@ -6,7 +6,7 @@
 package edu.wpi.first.wpilibj.templates.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.templates.subsystems.SubsystemMotor;
+import edu.wpi.first.wpilibj.templates.subsystems.SubsysDriveTrain;
 import java.util.Enumeration;
 import java.util.Vector;
 
@@ -15,36 +15,6 @@ import java.util.Vector;
  * @author Michael
  */
 public class CmdDrivePosition extends CommandBase {
-    
-    public class MyEventClass {
-         //here's the constructor
-         public MyEventClass(Object source) {
-         }
-    }
-    
-    public interface MyEventClassListener {
-        public void handleMyEventClassEvent(MyEventClass e);
-    }
-    
-    public class MyEventSource {
-        private Vector _listeners = new Vector();
-        public synchronized void addEventListener(MyEventClassListener listener){
-            _listeners.addElement(listener);
-        }
-        public synchronized void removeEventListener(MyEventClassListener listener){
-          _listeners.removeElement(listener);
-        }
-        
-        // call this method whenever you want to notify
-        //the event listeners of the particular event
-        private synchronized void fireEvent(){
-          MyEventClass event = new MyEventClass(this);
-          for (Enumeration e = _listeners.elements(); e.hasMoreElements();) {
-             ((MyEventClassListener) e.nextElement()).handleMyEventClassEvent(event); 
-          }
-        }
-    }
-    
     /***************************************
     *  Constants and Variable Declarations
     ***************************************/
@@ -60,7 +30,7 @@ public class CmdDrivePosition extends CommandBase {
     
     public CmdDrivePosition(double position, double speed, double accel) {
         // Declare subsystem dependencies
-        requires(motorSubsystem);
+        requires(subsysDriveTrain);
         
         // Set parameters
         targetPosition = position;
@@ -75,16 +45,16 @@ public class CmdDrivePosition extends CommandBase {
     // Called just before this Command runs the first time
     protected void initialize() {
         // Check target vs. current position
-        moveForward = (targetPosition > motorSubsystem.getPosition(motorSubsystem.getEncoders()[SubsystemMotor.LEFT_ENCODER_INDEX]));            
+        moveForward = (targetPosition > subsysDriveTrain.getPosition(subsysDriveTrain.getEncoders()[SubsysDriveTrain.LEFT_ENCODER_INDEX]));            
         double setSpeed = (moveForward) ? Math.abs(targetSpeed) : -Math.abs(targetSpeed);
         double setAccel = Math.abs(targetAccel);
         
         // Set motor speed
         if (setAccel == 0.0) {
-            motorSubsystem.setSpeedAll(motorSubsystem.getSpeedControllers(), setSpeed);
+            subsysDriveTrain.setSpeedAll(subsysDriveTrain.getSpeedControllers(), setSpeed);
         }
         else {
-            motorSubsystem.setSpeedAll(motorSubsystem.getSpeedControllers(), setSpeed, setAccel);
+            subsysDriveTrain.setSpeedAll(subsysDriveTrain.getSpeedControllers(), setSpeed, setAccel);
         }
     }
 
@@ -95,8 +65,8 @@ public class CmdDrivePosition extends CommandBase {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         // Get current position
-        double currentPositionLeft = motorSubsystem.getPosition(motorSubsystem.getEncoders()[SubsystemMotor.LEFT_ENCODER_INDEX]);
-        double currentPositionRight = motorSubsystem.getPosition(motorSubsystem.getEncoders()[SubsystemMotor.RIGHT_ENCODER_INDEX]);
+        double currentPositionLeft = subsysDriveTrain.getPosition(subsysDriveTrain.getEncoders()[SubsysDriveTrain.LEFT_ENCODER_INDEX]);
+        double currentPositionRight = subsysDriveTrain.getPosition(subsysDriveTrain.getEncoders()[SubsysDriveTrain.RIGHT_ENCODER_INDEX]);
         SmartDashboard.putNumber("Left Encoder Value (Revolutions)", currentPositionLeft);
         SmartDashboard.putNumber("Right Encoder Value (Revolutions)", currentPositionRight);        
         
@@ -112,10 +82,10 @@ public class CmdDrivePosition extends CommandBase {
     protected void end() {
         // Stop motor
         if (targetAccel == 0.0) {
-            motorSubsystem.setSpeedAll(motorSubsystem.getSpeedControllers(), 0.0);
+            subsysDriveTrain.setSpeedAll(subsysDriveTrain.getSpeedControllers(), 0.0);
         }
         else {
-            motorSubsystem.setSpeedAll(motorSubsystem.getSpeedControllers(), 0.0, targetAccel);
+            subsysDriveTrain.setSpeedAll(subsysDriveTrain.getSpeedControllers(), 0.0, targetAccel);
         }
     }
 

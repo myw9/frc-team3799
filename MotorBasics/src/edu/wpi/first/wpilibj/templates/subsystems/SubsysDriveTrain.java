@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.templates.RobotMap;
  * 
  * @author Michael
  */
-public class SubsystemMotor extends Subsystem {
+public class SubsysDriveTrain extends Subsystem {
     /***************************************
     *  Constants and Variable Declarations
     ***************************************/
@@ -52,17 +52,12 @@ public class SubsystemMotor extends Subsystem {
     private Encoder leftEncoder, rightEncoder;
     private Encoder[] encoders = new Encoder[NUM_ENCODERS];
     
-    // PID Controller
-    PIDController pidControllerLeft;
-    PIDController pidControllerRight;
-    double pidValue;    
-    
     /***************************************
     *  Constructors
     ***************************************/
     
     // Motors subsystem constructor
-    public SubsystemMotor() {
+    public SubsysDriveTrain() {
         // Initialize Talon speed controllers
         // (assumes default cRIO slot configuration)
         leftTalon = new Talon(RobotMap.LEFT_TALON_CHANNEL);
@@ -77,11 +72,6 @@ public class SubsystemMotor extends Subsystem {
         encoders[LEFT_ENCODER_INDEX] = leftEncoder;
         encoders[RIGHT_ENCODER_INDEX] = rightEncoder;
         initEncoders(encoders);
-        
-        // Initialize PID controller
-        pidValue = 0.02;
-        pidControllerLeft = new PIDController(pidValue, 0.0, 0.0, leftEncoder, leftTalon);
-        pidControllerRight = new PIDController(pidValue, 0.0, 0.0, rightEncoder, rightTalon);
     }
     
     /***************************************
@@ -173,18 +163,6 @@ public class SubsystemMotor extends Subsystem {
         for (int i=0; i<encoders.length; i++) {
             encoders[i].stop();
         }
-    }
-    
-    //
-    public void setPIDSetpoint(double setpoint) {
-        pidControllerLeft.setPID(pidValue, 0.0, 0.0);
-        pidControllerRight.setPID(pidValue, 0.0, 0.0);
-        
-        pidControllerLeft.setSetpoint(setpoint);
-        pidControllerRight.setSetpoint(setpoint);
-        
-        pidControllerLeft.enable();
-        pidControllerRight.enable();
     }
             
     /***************************************

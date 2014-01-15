@@ -28,7 +28,7 @@ public class CmdDriveSpeed extends CommandBase {
     
     public CmdDriveSpeed(double speed, double accel) {
         // Declare subsystem dependencies
-        requires(motorSubsystem);
+        requires(subsysDriveTrain);
         
         // Set parameters
         targetSpeed = speed;
@@ -42,10 +42,10 @@ public class CmdDriveSpeed extends CommandBase {
     // Called just before this Command runs the first time
     protected void initialize() {
         if (targetAccel == 0.0) {
-            motorSubsystem.setSpeedAll(motorSubsystem.getSpeedControllers(), targetSpeed);
+            subsysDriveTrain.setSpeedAll(subsysDriveTrain.getSpeedControllers(), targetSpeed);
         }
         else {
-            motorSubsystem.setSpeedAll(motorSubsystem.getSpeedControllers(), targetSpeed, targetAccel);
+            subsysDriveTrain.setSpeedAll(subsysDriveTrain.getSpeedControllers(), targetSpeed, targetAccel);
         }
     }
 
