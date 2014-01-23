@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import team3799.commands.CmdTankDrive;
+import team3799.commands.CmdTestLineSensor;
 import team3799.commands.CommandBase;
 
 /**
@@ -61,7 +62,8 @@ public class RobotCore extends IterativeRobot {
         {
             autonomousCommand.cancel();
         }    
-        teleopCommand.start();
+        teleopCommand.start();     
+        new CmdTestLineSensor().start();
     }
 
     /**

@@ -27,6 +27,10 @@ public class CmdTankDrive extends CommandBase {
                                subsysDriveTrain.backLeftTalon,
                                subsysDriveTrain.frontRightTalon,
                                subsysDriveTrain.backRightTalon);
+        drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
+        drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
+        drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
+        drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
     }
 
     // Called just before this Command runs the first time
