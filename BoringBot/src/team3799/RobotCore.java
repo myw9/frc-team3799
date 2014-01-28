@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import team3799.commands.CmdArcadeDrive;
 import team3799.commands.CommandBase;
+import team3799.commands.ReadEncoders;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -38,6 +39,7 @@ public class RobotCore extends IterativeRobot {
         // instantiate the command used for the autonomous and teleop periods
         autonomousCommand = null;
         teleopCommand = new CmdArcadeDrive();
+        
     }
 
     public void autonomousInit() {
@@ -62,6 +64,9 @@ public class RobotCore extends IterativeRobot {
             autonomousCommand.cancel();
         }    
         teleopCommand.start();
+        
+        new ReadEncoders().start();
+        
     }
 
     /**
