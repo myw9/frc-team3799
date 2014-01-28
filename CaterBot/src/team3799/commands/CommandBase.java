@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team3799.OI;
 import team3799.subsystems.SubsysDriveTrain;
+import team3799.subsystems.SubsysKicker;
 import team3799.subsystems.SubsysLineSensor;
 
 /**
@@ -18,7 +19,8 @@ public abstract class CommandBase extends Command {
     // Create a single static instance of all of your subsystems
     public static SubsysDriveTrain subsysDriveTrain = new SubsysDriveTrain();
     public static SubsysLineSensor subsysLineSensor = new SubsysLineSensor();
-
+    public static SubsysKicker subsysKicker = new SubsysKicker();
+    
     public static void init() {
         // This MUST be here. If the OI creates Commands (which it very likely
         // will), constructing it during the construction of CommandBase (from

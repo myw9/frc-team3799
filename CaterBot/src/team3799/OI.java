@@ -4,6 +4,10 @@ package team3799;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import team3799.commands.CmdDriveKickerBackward;
+import team3799.commands.CmdDriveKickerForward;
+import team3799.commands.CmdStopKicker;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -16,10 +20,21 @@ public class OI {
     // Joystick
     public static Joystick joystick;
     
-    // Constructor
+    //Buttons
+    public static JoystickButton forwardButton;
+    public static JoystickButton backwardButton;
+    
+// Constructor
     public OI()
     {
         joystick = new Joystick(JOYSTICK_CHANNEL);        
+        forwardButton = new JoystickButton(joystick, 12);
+        
+        backwardButton = new JoystickButton(joystick, 11);
+        backwardButton.whenPressed(new CmdDriveKickerBackward());
+        backwardButton.whenReleased(new CmdStopKicker());
+        forwardButton.whenPressed(new CmdDriveKickerForward());
+        forwardButton.whenReleased(new CmdStopKicker());
     }
     
     //// CREATING BUTTONS
@@ -53,5 +68,6 @@ public class OI {
     // Start the command when the button is released  and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
+    
 }
 
