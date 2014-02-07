@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import team3799.commands.CmdDriveKickerBackward;
+import team3799.commands.CmdDriveKickerBackwards;
 import team3799.commands.CmdDriveKickerForward;
 import team3799.commands.CmdStopKicker;
 
@@ -28,13 +28,12 @@ public class OI {
     public OI()
     {
         joystick = new Joystick(JOYSTICK_CHANNEL);        
-        forwardButton = new JoystickButton(joystick, 12);
-        
-        backwardButton = new JoystickButton(joystick, 11);
-        backwardButton.whenPressed(new CmdDriveKickerBackward());
-        backwardButton.whenReleased(new CmdStopKicker());
+        forwardButton = new JoystickButton(joystick, RobotMap.KICKER_FORWARD_BUTTON);
+        backwardButton = new JoystickButton(joystick, RobotMap.KICKER_BACKWARD_BUTTON);
+        backwardButton.whenPressed(new CmdDriveKickerBackwards());
+        //backwardButton.whenReleased(new CmdStopKicker());
         forwardButton.whenPressed(new CmdDriveKickerForward());
-        forwardButton.whenReleased(new CmdStopKicker());
+        //forwardButton.whenReleased(new CmdStopKicker());
     }
     
     //// CREATING BUTTONS

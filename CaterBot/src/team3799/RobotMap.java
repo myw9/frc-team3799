@@ -18,4 +18,12 @@ public class RobotMap {
     // public static final int rangefinderModule = 1;
     public static final double KICK_BACKWARD_SPEED = 0.1;
     public static final double KICK_FORWARD_SPEED = 0.1;
+    public static final int KICKER_TALON_CHANNEL = 5;
+    public static final int KICKER_PROX_CHANNEL = 13;
+    public static final int KICKER_ENCODER_CHANNEL_A = 1;
+    public static final int KICKER_ENCODER_CHANNEL_B = 2;
+    public static final int KICKER_FORWARD_BUTTON = 12;
+    public static final int KICKER_BACKWARD_BUTTON = 11;
+    public static final int KICKER_FORWARD_MAX = 83;
+    public static final int KICKER_BACKWARD_MAX = -122;
 }

@@ -4,17 +4,15 @@
  * and open the template in the editor.
  */
 package team3799.commands;
-
-import team3799.RobotMap;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
- * @author Trevor
+ * @author Michael
  */
-public class CmdDriveKickerForward extends CommandBase {    
-    boolean isKickerForwardMax;
+public class CmdZeroKicker extends CommandBase {
     
-    public CmdDriveKickerForward() {
+    public CmdZeroKicker() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(subsysKicker);
@@ -22,22 +20,23 @@ public class CmdDriveKickerForward extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        isKickerForwardMax = false;
-        subsysKicker.KickForward(RobotMap.KICK_FORWARD_SPEED);
+        
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if (subsysKicker.GetEncoderValue() >= RobotMap.KICKER_FORWARD_MAX)
+        if (subsysKicker.IsKickerHome())
         {
-            subsysKicker.StopKicker();
-            isKickerForwardMax = true;
-        }        
+           subsysKicker.ResetEncoder();
+        }
+        
+        SmartDashboard.putBoolean("ProxSensor Value : ", subsysKicker.IsKickerHome());
+        SmartDashboard.putInt("Kicker Encoder Value", subsysKicker.GetEncoderValue());        
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isKickerForwardMax;
+        return false;
     }
 
     // Called once after isFinished returns true

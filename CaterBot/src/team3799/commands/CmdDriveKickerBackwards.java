@@ -11,9 +11,11 @@ import team3799.RobotMap;
  *
  * @author Trevor
  */
-public class CmdDriveKickerBackward extends CommandBase {
+public class CmdDriveKickerBackwards extends CommandBase {
     
-    public CmdDriveKickerBackward() {
+    boolean isKickerBackwardsMax;
+    
+    public CmdDriveKickerBackwards() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(subsysKicker);
@@ -21,16 +23,22 @@ public class CmdDriveKickerBackward extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        subsysKicker.KickBackward(RobotMap.KICK_BACKWARD_SPEED);
+        isKickerBackwardsMax = false;
+        subsysKicker.KickBackward(RobotMap.KICK_BACKWARD_SPEED);        
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        if (subsysKicker.GetEncoderValue() <= RobotMap.KICKER_BACKWARD_MAX)
+        {
+            subsysKicker.StopKicker();
+            isKickerBackwardsMax = true;
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return isKickerBackwardsMax;
     }
 
     // Called once after isFinished returns true

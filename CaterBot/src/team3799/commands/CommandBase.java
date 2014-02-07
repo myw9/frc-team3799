@@ -18,8 +18,8 @@ public abstract class CommandBase extends Command {
     public static OI oi;
     // Create a single static instance of all of your subsystems
     public static SubsysDriveTrain subsysDriveTrain = new SubsysDriveTrain();
-    public static SubsysLineSensor subsysLineSensor = new SubsysLineSensor();
     public static SubsysKicker subsysKicker = new SubsysKicker();
+    public static SubsysLineSensor subsysLineSensor;
     
     public static void init() {
         // This MUST be here. If the OI creates Commands (which it very likely
